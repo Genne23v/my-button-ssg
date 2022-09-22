@@ -53,7 +53,7 @@ if(stats.isDirectory()){
     fileType = file.split('.').pop(); 
 
     //Only convert the .txt file into a HTML file
-    if(fileType == 'txt'){
+    if(fileType === 'txt' || fileType === 'md'){
     fs.readFile(argv.input + "/"+ file.toString(), 'utf-8', function(err, fullText){
       if(err) return console.log(err);
       let fname = path.parse(file).name;
@@ -90,7 +90,7 @@ else{
   //console.log(fileType);
 
   //Only convert the .txt file into a HTML file
-  if(fileType == 'txt'){
+  if(fileType === 'txt' || fileType === 'md'){
   fs.readFile(argv.input, 'utf8', function(err, fullText){
       if(err) return console.log(err);
 
@@ -103,7 +103,7 @@ else{
       let content = t.slice(1,t.length);
       let html = content
           .map(para =>
-            `\n<p>\n${para.replace(/\r?\n/, ' ')}\n</p> </br>`
+            `\n<p><b>\n${para.replace(/\r?\n/, ' ')}\n</b></p> </br>`
           ).join(' ');
           
       //HTML   
