@@ -20,6 +20,9 @@ __Or__
 
 `node my-button.js -i .\Sherlock-Holmes-Selected-Stories\` 
 Which will generate __HTML__ files for the __Sherlock-Holmes-Selected-Stories directory__ into the __/dist__ folder.
+
+**NOTE:** HTML files markdown syntax will be bold
+
 # Options
 Options:
 
