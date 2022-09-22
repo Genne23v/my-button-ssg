@@ -7,7 +7,7 @@ let argv = require('yargs/yargs')(process.argv.slice(2))
 .help('help').alias('help', 'h')
 .version('version', version).alias('version', 'v')
 .alias('i', 'input')
-.command("--input", "filename")
+.command("--input", "filename") 
 .options({
   input: {
     alias: 'input',
