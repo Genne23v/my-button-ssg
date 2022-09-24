@@ -110,7 +110,7 @@ if(stats.isDirectory()){
     });  
     tempHtml =
     `<!doctype html>\n` +
-    `<html lang="en">\n<head>\n<meta charset="UTF-8">\n<title>${fname[0]}</title>\n` +
+    `<html lang="${lang}">\n<head>\n<meta charset="UTF-8">\n<title>${t[0]}</title>\n` +
     `<link rel="stylesheet" href="../src/css/style.css">\n</head>\n` +
     `<body>\n` +
     `<div class = "container">\n` +
@@ -183,7 +183,7 @@ else{
   
   tempHtml =
   `<!doctype html>\n` +
-  `<html lang="en">\n<head>\n<meta charset="UTF-8">\n<title>${fname[0]}</title>\n` +
+  `<html lang="${lang}">\n<head>\n<meta charset="UTF-8">\n<title>${t[0]}</title>\n` +
   `<link rel="stylesheet" href="../src/css/style.css">\n</head>\n` +
   `<body>\n` +
   `<div class = "container">\n` +
