@@ -28,6 +28,12 @@ let argv = require('yargs/yargs')(process.argv.slice(2))
     default: '.',
     describe: 'generate the lang attribute',
     type: 'string'
+  },
+  config: {
+    alias: 'c',
+    demandOption: false,
+    describe: 'specify path to config file with options',
+    type: 'string'
   }
 })
 .argv;
@@ -52,6 +58,28 @@ let tempHtml;
 let footer = '© 2022 OSD600 Seneca';
 let fileType ='';
 let lang;
+let configFilePath = argv.config;
+
+if (configFilePath) {
+  if (fs.existsSync(configFilePath) == false || fs.statSync(configFilePath).isDirectory()) {
+    console.error("Invalid config file path");
+    return;
+  }
+
+  try {
+    let configFileData = fs.readFileSync(configFilePath);
+    let configOptions = JSON.parse(configFileData);
+    console.log(configOptions);
+    return;
+  } catch (parseError) {
+    if (parseError instanceof SyntaxError) {
+      console.error("Invalid JSON");
+      return;
+    }
+
+    console.error(`Error while parsing config file: ${parseError}`);
+  }
+}
 
 if(argv.lang == '.'){
   lang = "en-CA";
