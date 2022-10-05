@@ -56,7 +56,7 @@ fs.mkdir("./dist", err=>{
 let tempHtml;
 let footer = '© 2022 OSD600 Seneca';
 let fileType ='';
-let lang;
+let lang = argv.lang;
 let inputPath = argv.input;
 let configFilePath = argv.config;
 
@@ -87,7 +87,7 @@ if(argv.lang == '.'){
   lang = argv.lang;
 }
 
-let stats = fs.statSync(inputPath, argv.lang);
+let stats = fs.statSync(inputPath, lang);
 
 if(stats.isDirectory()){
   fs.readdirSync(inputPath).forEach(file =>{
