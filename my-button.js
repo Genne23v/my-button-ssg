@@ -85,6 +85,10 @@ if (lang == '.' || lang == undefined) {
   lang = "en-CA";
 }
 
+if (inputPath == undefined) {
+  inputPath = ' ';
+}
+
 let stats = fs.statSync(inputPath, lang);
 
 if(stats.isDirectory()){
