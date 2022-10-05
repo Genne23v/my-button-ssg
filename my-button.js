@@ -81,7 +81,7 @@ if (configFilePath) {
   }
 }
 
-if (lang == '.') {
+if (lang == '.' || lang == undefined) {
   lang = "en-CA";
 }
 
