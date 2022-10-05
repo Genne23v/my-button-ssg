@@ -69,8 +69,8 @@ if (configFilePath) {
   try {
     let configFileData = fs.readFileSync(configFilePath);
     let configOptions = JSON.parse(configFileData);
-    console.log(configOptions);
-    return;
+    inputPath = configOptions.input;
+    lang = configOptions.lang;
   } catch (parseError) {
     if (parseError instanceof SyntaxError) {
       console.error("Invalid JSON");
@@ -81,10 +81,8 @@ if (configFilePath) {
   }
 }
 
-if(argv.lang == '.'){
+if (lang == '.') {
   lang = "en-CA";
-}else{
-  lang = argv.lang;
 }
 
 let stats = fs.statSync(inputPath, lang);
