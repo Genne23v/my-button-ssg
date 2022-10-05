@@ -57,6 +57,7 @@ let tempHtml;
 let footer = '© 2022 OSD600 Seneca';
 let fileType ='';
 let lang;
+let inputPath = argv.input;
 let configFilePath = argv.config;
 
 if (configFilePath) {
@@ -86,10 +87,10 @@ if(argv.lang == '.'){
   lang = argv.lang;
 }
 
-let stats = fs.statSync(argv.input, argv.lang);
+let stats = fs.statSync(inputPath, argv.lang);
 
 if(stats.isDirectory()){
-  fs.readdirSync(argv.input).forEach(file =>{
+  fs.readdirSync(inputPath).forEach(file =>{
   
     //Display all the files in the directory
     console.log("File name: ", file);
@@ -97,7 +98,7 @@ if(stats.isDirectory()){
 
     //Only convert the .txt file into a HTML file
     if(fileType === 'txt' || fileType === 'md'){
-    fs.readFile(argv.input + "/"+ file.toString(), 'utf-8', function(err, fullText){
+    fs.readFile(inputPath + "/"+ file.toString(), 'utf-8', function(err, fullText){
       if(err) return console.log(err);
       let fname = path.parse(file).name;
       //name the file without space
@@ -162,15 +163,15 @@ if(stats.isDirectory()){
 }
 
 else{
-  fileType = argv.input.split('.').pop(); 
+  fileType = inputPath.split('.').pop(); 
   //console.log(fileType);
 
   //Only convert the .txt and .md file into a HTML file
   if(fileType === 'txt' || fileType === 'md'){
-  fs.readFile(argv.input, 'utf8', function(err, fullText){
+  fs.readFile(inputPath, 'utf8', function(err, fullText){
       if(err) return console.log(err);
 
-      let fname = argv.input.split(".");
+      let fname = inputPath.split(".");
       //console.log(fname) //[ 'Silver Blaze', 'txt' ]
       let validFname = fname[0].split(' ').join('');
       
