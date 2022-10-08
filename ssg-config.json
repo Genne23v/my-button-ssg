@@ -1,6 +1,6 @@
 {
   "input": "./Sherlock-Holmes-Selected-Stories",
   "lang": "pt",
-  "output": "./would-be-ignored",
+  "output": "./this-is-ignored",
   "future-feature": "should be ignored for now"
 }
