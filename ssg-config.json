@@ -1,5 +1,5 @@
 {
-  "input": "./Sherlock-Holmes-Selected-Stories",
+  "input": "./Sherlock-Holmes-Selected-Stories/",
   "lang": "pt",
   "output": "./this-is-ignored",
   "future-feature": "should be ignored for now"
