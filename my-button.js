@@ -1,43 +1,45 @@
-const path = require("path");
+const path = require('path');
 const { version } = require('./package.json');
 let fs = require('fs');
 const markdownit = require('markdown-it'); 
 
+// eslint-disable-next-line no-undef
 let argv = require('yargs/yargs')(process.argv.slice(2))
-.usage('This is my simple program\n\nUsage: $0 [options]')
-.help('help').alias('help', 'h')
-.version('version', version).alias('version', 'v')
+.usage('This is my awesome program\n\nUsage: $0 [options]')
+.help('help')
+.alias('help', 'h')
+.version('version', version)
+.alias('version', 'v')
 .alias('i', 'input')
-.command("--input", "filename")
+.command('--input', 'filename')
 .options({
   input: {
     alias: 'input',
     demandOption: true,
     default: '.',
     describe: 'convert .txt file to html file',
-    type: 'string'
+    type: 'string',
   },
   output: {
     alias: 'o',
     demand: true,
     default: './dist',
-    type: 'string'
+    type: 'string',
   },
   lang: {
     alias: 'l',
     demandOption: true,
     default: '.',
     describe: 'generate the lang attribute',
-    type: 'string'
+    type: 'string',
   },
   config: {
     alias: 'c',
     //default: 'default.json',
     describe: 'accept a file path to a JSON config file',
-    type: 'string'
-  }
-})
-.argv;
+    type: 'string',
+  },
+}).argv
 
 // Check ./dist folder
 if(fs.existsSync("./dist")){
@@ -62,10 +64,10 @@ fs.mkdir("./dist", err=>{
 // let configFilePath = argv.config;
 
 
-if(argv.lang == '.'){
-  lang = "en-CA";
-}else{
-  lang = argv.lang;
+if (argv.lang == '.') {
+  var lang = 'en-CA'
+} else {
+  lang = argv.lang
 }
 
 
@@ -169,7 +171,7 @@ function mdFileConverter(content){
   //   }
   // });
   // Full Markdown support (e.g., swap out your basic version for an open source library/module that does it fully)
-  md = new markdownit();
+  let md = new markdownit();
   content.forEach(e => {
     if (e){
   html.push(md.render((e)));
@@ -212,7 +214,7 @@ function htmlConvertor(fileName,validFileName,fileType,fullText){
     let content = t.slice(1,t.length);
     let html = content
         .map(para =>
-          `\n<p>\n${para.replace(/\r?\n/, ' ')}\p</p>\n</br>`
+          `\n<p>\n${para.replace(/\r?\n/, ' ')}</p>\n</br>`
         ).join(' ');
     let tempHtml = htmlGen(lang, t[0], html, footer);
     //Write file

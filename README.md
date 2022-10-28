@@ -25,17 +25,6 @@ Which will generate __HTML__ files for the __Sherlock-Holmes-Selected-Stories di
 
 `node my-button.js -c ssg-config.json` Will read the input and language options from the specified config file.
 
-# Options
-Options:
-
- ` -h, --help     Show help                                             [boolean]`
- 
- ` -v, --version  Show version number                                   [boolean]`
-
- ` -i, --input    convert .txt file to html file              [string] [required]`
- 
- ` -c, --config   specify path to config file with options               [string]`
- 
  # Test Site
  https://my-button-ssg.vercel.app/ 
  # License
