@@ -5,7 +5,7 @@ const markdownit = require('markdown-it')
 
 // eslint-disable-next-line no-undef
 let argv = require('yargs/yargs')(process.argv.slice(2))
-  .usage('This is my awesome program\n\nUsage: $0 [options]')
+  .usage('This is my simple program\n\nUsage: $0 [options]')
   .help('help')
   .alias('help', 'h')
   .version('version', version)
