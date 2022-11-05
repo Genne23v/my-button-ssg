@@ -1,7 +1,7 @@
-const path = require('path')
-const { version } = require('./package.json')
-let fs = require('fs')
-const markdownit = require('markdown-it')
+const path = require('path');
+const { version } = require('./package.json');
+let fs = require('fs');
+const { htmlGen } = require('./htmlGen');
 
 // eslint-disable-next-line no-undef
 let argv = require('yargs/yargs')(process.argv.slice(2))
@@ -39,18 +39,18 @@ let argv = require('yargs/yargs')(process.argv.slice(2))
       describe: 'accept a file path to a JSON config file',
       type: 'string',
     },
-  }).argv
+  }).argv;
 
 // Check ./dist folder
 if (fs.existsSync('./dist')) {
-  fs.rmSync('./dist', { recursive: true })
+  fs.rmSync('./dist', { recursive: true });
   fs.mkdir('./dist', (err) => {
-    if (err) throw err
-  })
+    if (err) throw err;
+  });
 } else {
   fs.mkdir('./dist', (err) => {
-    if (err) throw err
-  })
+    if (err) throw err;
+  });
 }
 
 //Define variables
@@ -63,62 +63,62 @@ if (fs.existsSync('./dist')) {
 // let configFilePath = argv.config;
 
 if (argv.lang == '.') {
-  var lang = 'en-CA'
+  var lang = 'en-CA';
 } else {
-  lang = argv.lang
+  lang = argv.lang;
 }
 
 //check for config argument
 if (argv.config != null) {
   // When it has a config argument, then do this:
-  let notValid = false
-  console.log(`argv.config argument -- '${argv.config}' is not null!`)
+  let notValid = false;
+  console.log(`argv.config argument -- '${argv.config}' is not null!`);
   if (fs.existsSync(argv.config)) {
     // contains the json file
-    console.log('argv.config is exist!')
+    console.log('argv.config is exist!');
 
     fs.readFile(`${argv.config}`, 'utf8', (err, jsonString) => {
       if (err) {
-        console.log('File read failed:', err)
-        return
+        console.log('File read failed:', err);
+        return;
       }
 
-      let obj = JSON.parse(jsonString)
-      obj.input == undefined ? (notValid = true) : (argv.input = obj.input)
-      obj.lang == undefined ? (lang = 'en-CA') : (lang = obj.lang)
+      let obj = JSON.parse(jsonString);
+      obj.input == undefined ? (notValid = true) : (argv.input = obj.input);
+      obj.lang == undefined ? (lang = 'en-CA') : (lang = obj.lang);
       obj.output == undefined
         ? (argv.output = './dist')
-        : (argv.output = obj.output) // static output path
+        : (argv.output = obj.output); // static output path
       if (!notValid) {
-        let filePath = fs.statSync(obj.input, obj.lang)
-        convert(filePath)
+        let filePath = fs.statSync(obj.input, obj.lang);
+        convert(filePath);
       } else {
         console.log(
           `Input filename is empty in the ${argv.config}! Nothing to convert this time!`
-        )
+        );
       }
-    })
+    });
   } else {
     //not such a json file exist
-    let errMsg = `Sorry, we can't find your config json file, please try again!!`
-    console.log(errMsg)
-    notValid = true
+    let errMsg = `Sorry, we can't find your config json file, please try again!!`;
+    console.log(errMsg);
+    notValid = true;
   }
 } else {
   // When it doesn't have a config argument, then do this:
-  console.log(`No config argument detected this time! `)
-  let filePath = fs.statSync(argv.input, argv.lang)
-  convert(filePath)
+  console.log(`No config argument detected this time! `);
+  let filePath = fs.statSync(argv.input, argv.lang);
+  convert(filePath);
 }
 
 // put the convert code into a function
 function convert(filePath) {
   if (filePath.isDirectory()) {
-    console.log('argv.input is a folder!')
+    console.log('argv.input is a folder!');
     fs.readdirSync(argv.input).forEach((file) => {
       //Display all the files in the directory
       //console.log("File name: ", file);
-      let fileType = file.split('.').pop()
+      let fileType = file.split('.').pop();
 
       //Convert the .txt or .md file into a HTML file
       if (fileType == 'txt' || fileType == 'md') {
@@ -126,40 +126,41 @@ function convert(filePath) {
           argv.input + '/' + file.toString(),
           'utf-8',
           function (err, fullText) {
-            if (err) return console.log(err)
-            let fileName = path.parse(file).name
+            if (err) return console.log(err);
+            let fileName = path.parse(file).name;
             //name the file without space
-            let validFileName = fileName.split(' ').join('')
+            let validFileName = fileName.split(' ').join('');
             // let validFname = fname[0].split(' ').join('');
-            htmlConvertor(fileName, validFileName, fileType, fullText)
+            htmlConvertor(fileName, validFileName, fileType, fullText);
           }
-        )
+        );
       }
-    })
-    console.log('The HTML files have been saved to ./dist!')
+    });
+    console.log('The HTML files have been saved to ./dist!');
   } else {
-    console.log('argv.input is not a FOLDER!')
-    let fileType = argv.input.split('.').pop()
+    console.log('argv.input is not a FOLDER!');
+    let fileType = argv.input.split('.').pop();
     //console.log(fileType);
 
     //convert the .txt or .md file into a HTML file
     if (fileType == 'txt' || fileType == 'md') {
       fs.readFile(argv.input, 'utf8', function (err, fullText) {
-        if (err) return console.log(err)
+        if (err) return console.log(err);
 
-        let fileName = argv.input.split('.')
+        let fileName = argv.input.split('.');
         //console.log(fname) //[ 'Silver Blaze', 'txt' ]
-        let validFileName = fileName[0].split(' ').join('')
-        htmlConvertor(fileName, validFileName, fileType, fullText)
-      })
+        let validFileName = fileName[0].split(' ').join('');
+        htmlConvertor(fileName, validFileName, fileType, fullText);
+      });
     } else {
-      fileType = 'Sorry, only .txt and .md files are allowed! Please try again!' //md
-      console.log(fileType)
+      fileType =
+        'Sorry, only .txt and .md files are allowed! Please try again!'; //md
+      console.log(fileType);
     }
   }
 }
 function mdFileConverter(content) {
-  const html = []
+  const html = [];
   // content.forEach(e => {
   //   if(e.includes('### ')) {
   //     html.push(`<h3>${e.replace('###', '').replace('---','<hr>')}</h3> <br />`);
@@ -172,62 +173,62 @@ function mdFileConverter(content) {
   //   }
   // });
   // Full Markdown support (e.g., swap out your basic version for an open source library/module that does it fully)
-  let md = new markdownit()
+  let md = new markdownit();
   content.forEach((e) => {
     if (e) {
-      html.push(md.render(e))
+      html.push(md.render(e));
     } else {
       html.push(
         `<p>${e.replace(/\r?\n/, ' ').replace('---', '<hr>')}</p> <br />`
-      )
+      );
     }
-  })
-  return html
+  });
+  return html;
 }
 
-function htmlGen(lang, title, html, footer) {
-  return typeof html == 'object'
-    ? `<!doctype html>\n` +
-        `<html lang="${lang}">\n<head>\n<meta charset="UTF-8">\n<title>${title}</title>\n` +
-        `<link rel="stylesheet" href="../src/css/style.css">\n</head>\n` +
-        `<body>\n` +
-        `<div class = "container">\n` +
-        `${html.join(' ')}` +
-        `</div>\n</body>\n` +
-        `<footer> \n ${footer}\n</footer>\n</html>`
-    : `<!doctype html>\n` +
-        `<html lang="${lang}">\n<head>\n<meta charset="UTF-8">\n<title>${title}</title>\n` +
-        `<link rel="stylesheet" href="../src/css/style.css">\n</head>\n` +
-        `<body>\n` +
-        `<div class = "container">\n` +
-        `<h1>${title} </h1>\n` +
-        `${html}` +
-        `</div>\n</body>\n` +
-        `<footer> \n ${footer}\n</footer>\n</html>`
-}
+// function htmlGen(lang, title, html, footer) {
+//   return typeof html == 'object'
+//     ? `<!doctype html>\n` +
+//         `<html lang="${lang}">\n<head>\n<meta charset="UTF-8">\n<title>${title}</title>\n` +
+//         `<link rel="stylesheet" href="../src/css/style.css">\n</head>\n` +
+//         `<body>\n` +
+//         `<div class = "container">\n` +
+//         `${html.join(' ')}` +
+//         `</div>\n</body>\n` +
+//         `<footer> \n ${footer}\n</footer>\n</html>`
+//     : `<!doctype html>\n` +
+//         `<html lang="${lang}">\n<head>\n<meta charset="UTF-8">\n<title>${title}</title>\n` +
+//         `<link rel="stylesheet" href="../src/css/style.css">\n</head>\n` +
+//         `<body>\n` +
+//         `<div class = "container">\n` +
+//         `<h1>${title} </h1>\n` +
+//         `${html}` +
+//         `</div>\n</body>\n` +
+//         `<footer> \n ${footer}\n</footer>\n</html>`
+// }
 
 function htmlConvertor(fileName, validFileName, fileType, fullText) {
-  let footer = '© 2022 OSD600 Seneca'
+  let footer = '© 2022 OSD600 Seneca';
   if (fileType == 'txt') {
-    let t = fullText.split(/\r?\n\r?\n/)
-    console.log('Title is :', t[0])
-    let content = t.slice(1, t.length)
+    let t = fullText.split(/\r?\n\r?\n/);
+    console.log('Title is :', t[0]);
+    let content = t.slice(1, t.length);
     let html = content
       .map((para) => `\n<p>\n${para.replace(/\r?\n/, ' ')}</p>\n</br>`)
-      .join(' ')
-    let tempHtml = htmlGen(lang, t[0], html, footer)
+      .join(' ');
+    let tempHtml = htmlGen(lang, t[0], html, footer);
     //Write file
     fs.writeFile(`./dist/${validFileName}.html`, tempHtml, (err) => {
-      if (err) throw err
-    })
+      if (err) throw err;
+    });
   } else if (fileType == 'md') {
-    let contents = fullText.split(/\r?\n\r?\n/)
-    console.log('Title is :', validFileName)
-    let html = mdFileConverter(contents)
-    let tempHtml = htmlGen(lang, fileName[0], html, footer)
+    let contents = fullText.split(/\r?\n\r?\n/);
+    console.log('Title is :', validFileName);
+    let html = mdFileConverter(contents);
+    let tempHtml = htmlGen(lang, fileName[0], html, footer);
     //Write file
     fs.writeFile(`./dist/${validFileName}.html`, tempHtml, (err) => {
-      if (err) throw err
-    })
+      if (err) throw err;
+    });
   }
 }
