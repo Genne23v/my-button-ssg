@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1667656194798" clover="3.2.0">
-  <project timestamp="1667656194798" name="All files">
+<coverage generated="1667664319883" clover="3.2.0">
+  <project timestamp="1667664319884" name="All files">
     <metrics statements="20" coveredstatements="20" conditionals="26" coveredconditionals="26" methods="1" coveredmethods="1" elements="47" coveredelements="47" complexity="0" loc="20" ncloc="20" packages="1" files="1" classes="1"/>
     <file name="htmlGen.js" path="C:\Users\phuch\OneDrive\Documents\OSD600 - main\my-button-ssg\htmlGen.js">
       <metrics statements="20" coveredstatements="20" conditionals="26" coveredconditionals="26" methods="1" coveredmethods="1"/>

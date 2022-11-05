@@ -1,6 +1,6 @@
 const { htmlGen } = require('./htmlGen');
 
-describe('htmlGenerator', () => {
+describe('htmlGen', () => {
   //All good values and the typeof html is string
   it('Generate a html code with all good values and a html string', () => {
     let lang = 'en-CA';
