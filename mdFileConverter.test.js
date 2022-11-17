@@ -41,4 +41,12 @@ describe('mdFileNewFeature', () => {
     let temp = ['<hr>\n'];
     assert.deepEqual(mdFileConverter(content), temp);
   });
+
+  it('test6', () => {
+    let tempString = `**This entire line should be bolded**.`;
+    let content = tempString.split(/\r?\n\r?\n/);
+
+    let temp = ['<p><strong>This entire line should be bolded</strong>.</p>\n'];
+    assert.deepEqual(mdFileConverter(content), temp);
+  });
 });
