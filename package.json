@@ -1,6 +1,6 @@
 {
   "name": "button-ssg",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "A __Static Site Generator__(_SSG_) for __OSD600__",
   "main": "my-button.js",
   "scripts": {
