@@ -13,7 +13,7 @@ check if yargs is installed and if not run the following in your terminal:
 `node my-button.js --input  Convert a text file to HTML file.`
 After installation of yargs. You can simply run the program by the command:
 
-`node my-button.js -i "Silver Blaze.txt"` or `node my-button.js -i LISCENSE.md`
+`node my-button.js -i "Silver Blaze.txt"` or `node my-button.js -i LICSENSE.md`
 Which will generate a __HTML__ file for the __'Silver-Blaze.txt'__ file or __'Silver-Blaze.md'__ file into the __/dist__ folder.
 
 __Or__
