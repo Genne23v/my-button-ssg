@@ -16,9 +16,11 @@
   "author": "LostButton",
   "license": "ISC",
   "dependencies": {
+    "button-ssg": "^1.0.0",
     "fs": "0.0.1-security",
     "git": "^0.1.5",
     "markdown-it": "^13.0.1",
+    "text-ssg-tool": "^1.0.0",
     "yargs": "^17.5.1"
   },
   "repository": {
